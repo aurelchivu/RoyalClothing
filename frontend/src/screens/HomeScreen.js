@@ -6,7 +6,7 @@ import '../styles/screens/home-screen.scss';
 
 const HomeScreen = () => {
   return (
-    <div className='homepage'>
+    <div className='home-screen'>
       <Directory />
     </div>
   );
