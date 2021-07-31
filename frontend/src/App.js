@@ -1,9 +1,10 @@
 import './App.css';
+import HomeScreen from './screens/HomeScreen';
 
 function App() {
   return (
     <div className="App">
-      <h1>Welcome to Royal Clothing</h1>
+      <HomeScreen />
     </div>
   );
 }
