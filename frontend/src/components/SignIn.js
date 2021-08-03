@@ -5,7 +5,7 @@ import CustomButton from './CustomButton';
 
 import '../styles/components/sign-in.scss';
 
-import { signInWithGoogle } from '../firebase/firebase.utils'
+import { signInWithGoogle } from '../firebase/firebase.utils';
 
 const SignIn = () => {
   const initialInputs = {
@@ -21,10 +21,11 @@ const SignIn = () => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target);
     const { name, value } = e.target;
     setInputs({ ...inputs, [name]: value });
   };
+
+  const { email, password } = inputs;
 
   return (
     <div className='sign-in'>
@@ -36,20 +37,19 @@ const SignIn = () => {
           name='email'
           type='email'
           handleChange={handleChange}
-          value={inputs.email}
+          value={email}
           label='email'
           required
         />
         <FormInput
           name='password'
           type='password'
-          value={inputs.password}
+          value={password}
           handleChange={handleChange}
           label='password'
           required
         />
         <div className='button'>
-          {' '}
           <CustomButton type='submit'>Sign In</CustomButton>
           <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
             Sign In With Google
