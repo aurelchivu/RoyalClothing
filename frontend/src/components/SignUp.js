@@ -5,7 +5,7 @@ import CustomButton from './CustomButton';
 
 import { auth, createUserProfileDocument } from '../firebase/firebase.utils';
 
-import '../styles/components/sign-in.scss';
+import '../styles/components/sign-up.scss';
 
 const SignUp = () => {
   const initialInputs = {
@@ -17,13 +17,13 @@ const SignUp = () => {
 
   const [inputs, setInputs] = useState(initialInputs);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     const { displayName, email, password, confirmPassword } = inputs;
 
     if (password !== confirmPassword) {
-      alert("passwords don't match");
+      alert("Passwords don't match");
       return;
     }
 
@@ -33,7 +33,7 @@ const SignUp = () => {
         password
       );
 
-      await createUserProfileDocument(user, { displayName });
+      await createUserProfileDocument(user, {displayName} );
 
       setInputs(initialInputs);
     } catch (error) {
@@ -50,7 +50,7 @@ const SignUp = () => {
 
   return (
     <div className='sign-up'>
-      <h2 className='title'>I do not have a account</h2>
+      <h2 className='title'>I do not have an account</h2>
       <span>Sign up with your email and password</span>
       <form className='sign-up-form' onSubmit={handleSubmit}>
         <FormInput
