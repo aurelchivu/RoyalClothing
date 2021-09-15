@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './App.css';
@@ -13,7 +13,7 @@ import SignInSignUpScreen from './screens/SignInSignUpScreen';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/actions/userActions';
 
-function App({ setCurrentUser }) {
+function App({ currentUser, setCurrentUser }) {
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
@@ -38,13 +38,23 @@ function App({ setCurrentUser }) {
       <Route exact path='/' component={HomeScreen} />
       <Route path='/hats' component={HatsScreen} />
       <Route path='/shop' component={ShopScreen} />
-      <Route path='/signin' component={SignInSignUpScreen} />
+      <Route
+        exact
+        path='/signin'
+        render={() =>
+          currentUser ? <Redirect to='/' /> : <SignInSignUpScreen />
+        }
+      />{' '}
     </>
   );
 }
+
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
